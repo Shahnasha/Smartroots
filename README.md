@@ -1,11 +1,11 @@
 SmartRoots is a family-focused learning platform designed to help parents nurture their children's growth through personalized, skill-based activities. Built with Django and developed using Visual Studio Code, SmartRoots offers a dynamic, database-driven experience where parents and children can log in through separate dashboards, explore curated activities filtered by age, skill, and difficulty, and track progress over time. The platform replaces hardcoded logic with admin-controlled models, allowing for flexible content management and personalized recommendations based on user ratings.
 
-Introduction
+Introduction:
 This system is built to automate the delivery of age-appropriate, skill-targeted activities for children. Using a database of curated content and a rating-based recommendation engine, SmartRoots helps parents discover meaningful learning experiences tailored to their child’s development. The platform includes a warm admin dashboard for content management, separate login flows for parents and children, and a simple frontend for interaction.
 
 SmartRoots is ideal for educational use, prototyping, or as the foundation for a full-scale learning platform. It showcases how thoughtful branding, emotional design, and backend logic can work together to create a nurturing digital space.
 
-Features
+Features:
 Django backend with models for activities, users, ratings, and progress
 
 Admin interface for adding/editing activities and managing users
@@ -18,7 +18,7 @@ Basic frontend with nurturing design and intuitive navigation
 
 Developed and debugged using Visual Studio Code for efficient workflow
 
-Recommendation System
+Recommendation System:
 Uses Django ORM queries to filter activities by age, skill, and difficulty
 
 Ratings influence future recommendations
