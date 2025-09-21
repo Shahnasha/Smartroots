@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parent Dashboard – SmartRoots</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dashboard-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 25px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 650px;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      margin-bottom: 10px;
+      color: #6a1b9a;
+      font-size: 2.2em;
+      text-align: center;
+      position: relative;
+    }
+    h2::before {
+      content: "🌱";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(-150%);
+      font-size: 1.5em;
+    }
+    h3 {
+      text-align: center;
+      color: #555;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+    p {
+      text-align: center;
+      font-size: 1.1em;
+      color: #444;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+    label::before {
+      content: attr(data-icon);
+      margin-right: 8px;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 2px solid #ce93d8;
+      border-radius: 10px;
+      background-color: #f3e5f5;
+      font-size: 1em;
+    }
+    .btn-submit {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 30px;
+      width: 100%;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease;
+    }
+    .btn-submit:hover {
+      background-color: #4a148c;
+    }
+    .feedback-link {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 1em;
+      color: #6a1b9a;
+    }
+    .feedback-link a {
+      color: #6a1b9a;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .feedback-link a:hover {
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 600px) {
+      .dashboard-box {
+        padding: 30px 20px;
+      }
+      h2 {
+        font-size: 1.8em;
+      }
+      .btn-submit {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-box">
+    <h2>Welcome, Parent!</h2>
+    <h3>Nurture Their Growth: Rate Your Child’s Skills</h3>
+    <p>Rate your child's current skills to get personalized activity recommendations 🌿</p>
+
+    <form method="POST" action="{% url 'submit_ratings' %}">
+      {% csrf_token %}
+
+      <label data-icon="🎂">Child's Age:</label>
+      <select name="age">
+        {% for i in age_range %}
+          <option value="{{ i }}">{{ i }} years</option>
+        {% endfor %}
+      </select>
+
+      <label data-icon="🎯">Preferred Difficulty:</label>
+      <select name="difficulty">
+        {% for i in skill_range %}
+          <option value="{{ i }}">
+            {% if i == 1 %}Easy{% elif i == 2 %}Medium{% elif i == 3 %}Hard{% else %}Level {{ i }}{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+
+      <label data-icon="🎈">Choose Activity Type:</label>
+      <select name="activity_type">
+        <option value="all">All Types</option>
+        <option value="speaking">🗣️ Speaking</option>
+        <option value="listening">👂 Listening</option>
+        <option value="reading">📖 Reading</option>
+        <option value="writing">✍️ Writing</option>
+        <option value="drawing">🎨 Drawing</option>
+        <option value="moving">🕺 Moving</option>
+        <option value="playing with others">🤝 Playing with Others</option>
+      </select>
+
+      {% for skill, label in skill_names %}
+        <label data-icon="🧠">{{ label }}:</label>
+        <select name="{{ skill }}">
+          {% for i in skill_range %}
+            <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+      {% endfor %}
+
+      <button type="submit" class="btn-submit">Get Recommendations</button>
+    </form>
+
+    <div class="feedback-link">
+      💬 Want to help SmartRoots grow? <a href="/submit-feedback/">Share your feedback</a>
+
+    </div>
+  </div>
+</body>
+</html>
