@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Share Your Feedback – SmartRoots</title>
+</head>
+<body>
+  <h2>🌱 Share Your Feedback</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send Feedback</button>
+  </form>
+</body>
+</html>
