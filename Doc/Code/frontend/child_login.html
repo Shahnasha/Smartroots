@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Child Login – SmartRoots</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #00897b;
+      font-size: 1.8em;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #90caf9;
+      border-radius: 12px;
+      font-size: 1em;
+      background-color: #e3f2fd;
+    }
+
+    .btn-login {
+      background-color: #00897b;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #00695c;
+    }
+
+    .links {
+      margin-top: 15px;
+      font-size: 0.95em;
+    }
+
+    .links a {
+      color: #4a148c;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Child Login</h2>
+    <form method="POST" action="/child-login/">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Your Name" required>
+      <input type="password" name="password" placeholder="Secret Code" required>
+      <button type="submit" class="btn-login">Log In</button>
+    </form>
+    <div class="links">
+      <a href="/">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
