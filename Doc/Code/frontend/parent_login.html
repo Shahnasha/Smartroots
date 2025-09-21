@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parent Login – SmartRoots</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(270deg, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(74, 20, 140, 0.3);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #4a148c;
+      font-size: 1.9em;
+    }
+
+    .subtitle {
+      font-size: 1em;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #4a148c;
+      outline: none;
+    }
+
+    .btn-login {
+      background-color: #4a148c;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      font-size: 1em;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #6a1b9a;
+      transform: translateY(-2px);
+    }
+
+    .links {
+      margin-top: 15px;
+      font-size: 0.95em;
+    }
+
+    .links a {
+      color: #00897b;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      background-color: #ffebee;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media screen and (max-width: 500px) {
+      .login-box {
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      .btn-login {
+        font-size: 0.95em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <img src="{% static 'images/logo.png' %}" alt="SmartRoots Logo" class="logo">
+    <h2>Parent Login</h2>
+    <p class="subtitle">Welcome back! Let’s nurture their growth together 🌿</p>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="error-message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="/parent-login/">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="👤 Username" required>
+      <input type="password" name="password" placeholder="🔒 Password" required>
+      <button type="submit" class="btn-login">Log In</button>
+    </form>
+
+    <div class="links">
+      <a href="#">Forgot password?</a>
+      <a href="/">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
