@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recommended Activities – SmartRoots</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #00897b;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .activity-card {
+      background-color: #f3f3f3;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .activity-card:hover {
+      transform: scale(1.02);
+    }
+
+    .activity-title {
+      font-size: 1.3em;
+      color: #6a1b9a;
+      margin-bottom: 5px;
+    }
+
+    .activity-meta {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .activity-description {
+      font-size: 1em;
+      color: #333;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      margin-right: 8px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      color: white;
+    }
+
+    .indoor { background-color: #6a1b9a; }
+    .outdoor { background-color: #00897b; }
+    .flexible { background-color: #fbc02d; color: #333; }
+
+    .print-button {
+      display: block;
+      margin: 30px auto 10px auto;
+      background-color: #00897b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .print-button:hover {
+      background-color: #00695c;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      color: #4a148c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Recommended Activities</h2>
+
+    {% if activity_type != "all" %}
+      <p style="text-align:center; color:#666;">Showing only: <strong>{{ activity_type|title }}</strong></p>
+    {% endif %}
+
+    {% if recommendations %}
+      {% for activity in recommendations %}
+        <div class="activity-card">
+          <div class="activity-title">{{ activity.title }}</div>
+          <div class="activity-meta">
+            {% if activity.type == "speaking" %}🗣️ Speaking{% endif %}
+            {% if activity.type == "listening" %}👂 Listening{% endif %}
+            {% if activity.type == "reading" %}📖 Reading{% endif %}
+            {% if activity.type == "writing" %}✍️ Writing{% endif %}
+            {% if activity.type == "drawing" %}🎨 Drawing{% endif %}
+            {% if activity.type == "moving" %}🕺 Moving{% endif %}
+            {% if activity.type == "playing with others" %}🤝 Playing with Others{% endif %}
+            &nbsp;|&nbsp; Age: {{ activity.min_age }}–{{ activity.max_age }}
+            &nbsp;|&nbsp;
+            {% if activity.environment == "indoor" %}
+              <span class="badge indoor">🏠 Indoor</span>
+            {% elif activity.environment == "outdoor" %}
+              <span class="badge outdoor">🌳 Outdoor</span>
+            {% elif activity.environment == "flexible" %}
+              <span class="badge flexible">🌈 Flexible</span>
+            {% endif %}
+          </div>
+          <div class="activity-description">{{ activity.description }}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align:center; color:#888;">No matching activities found. Try adjusting your ratings or age range 🌱</p>
+    {% endif %}
+
+    <button onclick="window.print()" class="print-button">🖨️ Print This Page</button>
+    <a href="/parent-dashboard/" class="back-link">← Back to Dashboard</a>
+  </div>
+</body>
+</html>
