@@ -1,0 +1,78 @@
+<h2>Your Completed Activities</h2>
+{% for entry in progress %}
+  <div class="activity-card">
+    <h3>{{ entry.activity.title }}</h3>
+    <p>{{ entry.activity.description }}</p>
+    <p><strong>Completed on:</strong> {{ entry.completed_on|date:"M d, Y" }}</p>
+    {% if entry.rating %}
+      <p><strong>Your Rating:</strong> {{ entry.rating }}/5</p>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>No activities completed yet. Let’s get started!</p>
+{% endfor %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My SmartRoots Tree</title>
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fce4ec);
+      padding: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #4e342e;
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+    .activity-card {
+      background-color: #fff3e0;
+      border-left: 6px solid #ffb74d;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .activity-card h3 {
+      margin-top: 0;
+      color: #e65100;
+    }
+    .activity-card p {
+      margin: 6px 0;
+      color: #555;
+    }
+    .empty-message {
+      text-align: center;
+      font-size: 1.2em;
+      color: #888;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌳 Your Growing SmartRoots Tree</h2>
+
+  {% if progress %}
+    {% for entry in progress %}
+      <div class="activity-card">
+        <h3>{{ entry.activity.title }}</h3>
+        <p>{{ entry.activity.description }}</p>
+        <p><strong>Completed on:</strong> {{ entry.completed_on|date:"M d, Y" }}</p>
+        {% if entry.rating %}
+          <p><strong>Your Rating:</strong> {{ entry.rating }}/5</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="empty-message">
+      No activities completed yet. Start growing your tree today 🌱
+    </div>
+  {% endif %}
+</body>
+</html>
+
+
