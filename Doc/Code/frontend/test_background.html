@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartRoots</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background-image: url("{% static 'images/parent.jpg' %}");
+      background-size: cover;           /* Ensures full screen coverage */
+      background-position: center;      /* Keeps image centered */
+      background-repeat: no-repeat;     /* Prevents tiling */
+      background-attachment: fixed;     /* Keeps image fixed during scroll */
+    }
+
+    .content {
+      text-align: center;
+      padding-top: 100px;
+      color: #fff;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Welcome to SmartRoots</h1>
+    <p>Where families grow together through joyful learning.</p>
+  </div>
+</body>
+</html>
