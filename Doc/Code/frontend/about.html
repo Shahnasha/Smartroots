@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About SmartRoots</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      color: #4a148c;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ff6f91, #ffc75f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .features {
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .features h2 {
+      font-size: 1.6em;
+      margin-top: 30px;
+      color: #4a148c;
+    }
+
+    .features ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .features li {
+      background-color: #fff3cd;
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      font-size: 1.1em;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        margin: 40px 20px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .features h2 {
+        font-size: 1.3em;
+      }
+
+      .features li {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="{% static 'images/logo.png' %}" alt="SmartRoots Icon" class="icon">
+    <h1>About SmartRoots</h1>
+    <p>
+      SmartRoots is a welcoming space for families to grow together.  
+      We believe that learning should feel joyful, intuitive, and emotionally connected.  
+      SmartRoots offers a simple, accessible platform where parents and children can explore, learn, and thrive side by side.  
+      From playful design to clear guidance, every detail is crafted with care—because small moments of support can plant lifelong roots of confidence and curiosity.
+    </p>
+    <a href="/" style="
+  display: inline-block;
+  margin-top: 40px;
+  padding: 10px 20px;
+  background-color: #4a148c;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+">
+  ← Back to Home
+</a>
+
+
+    <div class="features">
+      <h2>👨‍👧 For Parents</h2>
+      <ul>
+        <li>Easy-to-use dashboard to manage your child’s learning</li>
+        <li>Gentle reminders and progress tracking</li>
+        <li>Access to playful, age-appropriate activities</li>
+        <li>Parent-friendly tips and emotional support tools</li>
+        <li>Secure login and privacy-focused design</li>
+      </ul>
+
+      <h2>🧍‍♀️ For Children</h2>
+      <ul>
+        <li>Colorful, engaging interface made just for kids</li>
+        <li>Interactive learning games and stories</li>
+        <li>Gentle animations and nurturing visuals</li>
+        <li>Encouraging messages and badges for progress</li>
+        <li>Safe login with child-friendly navigation</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
