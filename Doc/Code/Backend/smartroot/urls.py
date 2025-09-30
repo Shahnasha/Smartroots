@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from core import views  # or your app name if different
 
 urlpatterns = [
@@ -13,5 +13,5 @@ urlpatterns = [
     path('submit-ratings/', views.submit_ratings, name='submit_ratings'),
     path('submit-feedback/', views.submit_feedback, name='submit_feedback'),
     path('admin/', admin.site.urls),
-
+    path('', include('core.urls')),
 ]
