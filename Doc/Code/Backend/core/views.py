@@ -3,8 +3,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Activity, Progress
 from .forms import FeedbackForm
+from django.contrib.auth.decorators import login_required
 
-# 🌱 Static Pages
+@login_required
+def undo_activity_complete(request, activity_id):
+    activity = get_object_or_404(Activity, id=activity_id)
+    Progress.objects.filter(user=request.user, activity=activity).delete()
+    messages.success(request, "❌ Activity unmarked successfully.")
+    return redirect('child_dashboard')
+
 def welcome(request):
     return render(request, 'welcome.html')
 
@@ -22,11 +29,33 @@ def about_page(request):
 
 
 # 🧒 Child Dashboard
+# 🧒 Child Dashboard
 def child_dashboard(request):
     if request.user.is_authenticated:
         progress = Progress.objects.filter(user=request.user).select_related('activity')
-        return render(request, 'child_dashboard.html', {'progress': progress})
+        completed_count = progress.count()
+        total_count = Activity.objects.filter(is_active=True).count()
+        percent_complete = int((completed_count / total_count) * 100) if total_count > 0 else 0
+
+        # 🏅 Milestone Badges
+        badges = []
+        if completed_count >= 1:
+            badges.append("🌱 First Activity Done")
+        if completed_count >= 5:
+            badges.append("🎯 5 Activities Completed")
+        if completed_count >= 10:
+            badges.append("🏆 10 Activities Completed")
+
+        return render(request, 'child_dashboard.html', {
+            'progress': progress,
+            'completed_count': completed_count,
+            'total_count': total_count,
+            'percent_complete': percent_complete,
+            'badges': badges
+        })
     return redirect('child_login')
+
+
 
 
 # 🧒 Child Login
@@ -54,7 +83,6 @@ def parent_login(request):
         messages.error(request, 'Invalid username or password.')
     return render(request, 'parent_login.html')
 
-
 # 🧭 Parent Dashboard
 def parent_dashboard(request):
     age_range = range(3, 11)
@@ -75,7 +103,7 @@ def parent_dashboard(request):
     })
 
 
-# 🌟 Ratings Submission and Recommendations
+
 def submit_ratings(request):
     if request.method == 'POST':
         # Collect ratings and filters
@@ -110,15 +138,11 @@ def submit_ratings(request):
             'activity_type': activity_type
         })
 
-
-# ✅ Mark Activity as Complete
 def mark_activity_complete(request, activity_id):
-    if request.method == 'POST' and request.user.is_authenticated:
-        activity = get_object_or_404(Activity, id=activity_id)
-        Progress.objects.get_or_create(user=request.user, activity=activity)
-        messages.success(request, "Activity marked as complete!")
-        return redirect('child_dashboard')
-    return redirect('child_login')
+    activity = get_object_or_404(Activity, id=activity_id)
+    Progress.objects.get_or_create(user=request.user, activity=activity)
+    messages.success(request, "✅ Activity marked as complete!")
+    return redirect('child_dashboard')
 
 def submit_feedback(request):
     if request.method == 'POST':
@@ -127,9 +151,13 @@ def submit_feedback(request):
             feedback = form.save(commit=False)
             feedback.user = request.user
             feedback.save()
-            messages.success(request, "Thank you for your feedback!")
+            messages.success(request, "✅ Your feedback was submitted successfully! Thank you for helping SmartRoots grow.")
             return redirect('parent_dashboard')
     else:
         form = FeedbackForm()
     return render(request, 'submit_feedback.html', {'form': form})
+
+
+
+
 
