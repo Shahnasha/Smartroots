@@ -3,13 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <title>Share Your Feedback – SmartRoots</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .feedback-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #6a1b9a;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    textarea, input[type="number"] {
+      padding: 12px;
+      border: 2px solid #ce93d8;
+      border-radius: 10px;
+      background-color: #f3e5f5;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4a148c;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.95em;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #c8e6c9;
+      color: #2e7d32;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: slideIn 0.5s ease-out;
+      z-index: 999;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media screen and (max-width: 600px) {
+      .feedback-box {
+        padding: 30px 20px;
+      }
+      h2 {
+        font-size: 1.6em;
+      }
+      button {
+        font-size: 1em;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h2>🌱 Share Your Feedback</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Send Feedback</button>
-  </form>
+  <div class="feedback-box">
+    <h2>🌱 Share Your Feedback</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="toast" id="toast">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Send Feedback</button>
+    </form>
+
+    <p class="note">Your thoughts help SmartRoots grow stronger and kinder 🌸</p>
+  </div>
+
+  <script>
+    // Auto-hide toast after 3 seconds
+    setTimeout(function() {
+      var toast = document.getElementById('toast');
+      if (toast) {
+        toast.style.display = 'none';
+      }
+    }, 3000);
+  </script>
 </body>
 </html>
