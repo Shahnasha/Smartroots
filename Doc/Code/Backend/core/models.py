@@ -35,11 +35,10 @@ class Activity(models.Model):
 class Progress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    completed_on = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} – {self.activity.title}"
+        return f"{self.user.username} completed {self.activity.title}"
     
 
 class Feedback(models.Model):
