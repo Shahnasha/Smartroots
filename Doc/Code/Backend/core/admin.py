@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Activity, Progress
-from .models import Feedback
+from .models import Activity, Feedback, Progress
 
 admin.site.register(Feedback)
 
@@ -32,10 +31,9 @@ class ActivityAdmin(admin.ModelAdmin):
         }),
     )
 
-
 @admin.register(Progress)
 class ProgressAdmin(admin.ModelAdmin):
-    list_display = ('user', 'activity', 'completed_on', 'rating')
-    list_filter = ('completed_on', 'rating')
+    list_display = ('user', 'activity', 'timestamp')
+    list_filter = ('timestamp',)
     search_fields = ('user__username', 'activity__title')
-    ordering = ('-completed_on',)
+    ordering = ('-timestamp',)
