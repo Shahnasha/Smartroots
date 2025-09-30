@@ -11,8 +11,8 @@ urlpatterns = [
     path('parent-dashboard/', views.parent_dashboard, name='parent_dashboard'),
     path('submit-ratings/', views.submit_ratings, name='submit_ratings'),
     path('mark-complete/<int:activity_id>/', views.mark_activity_complete, name='mark_activity_complete'),
-     path('submit-feedback/', views.submit_feedback, name='submit_feedback'),
-
+    path('submit-feedback/', views.submit_feedback, name='submit_feedback'),
+    path('undo-complete/<int:activity_id>/', views.undo_activity_complete, name='undo_activity_complete'),
 
 ]
 
